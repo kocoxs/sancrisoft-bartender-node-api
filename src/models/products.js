@@ -20,5 +20,9 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
+    Products.associate = function({OrdersProducts}) {
+        Products.hasMany(OrdersProducts);
+    };
+
     return Products;
 };

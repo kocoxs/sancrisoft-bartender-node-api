@@ -49,6 +49,7 @@ const createDummyData = async () => {
     try {
         await db.Rol.create({name:'Administrator'})
         await db.Rol.create({name:'Bartender'})
+        
         const pass = await bycript.hash('123456789', 8)
     
         await db.Users.create({
@@ -63,6 +64,10 @@ const createDummyData = async () => {
             RolId: 2
         })
 
+        await db.Tips.create({name:'No tip', amount: 0.0})
+        await db.Tips.create({name:'10%', amount: 0.1})
+        await db.Tips.create({name:'205', amount: 0.2})
+
     } catch (error) {
         console.log('ERROR: ', error)
     }
@@ -70,7 +75,6 @@ const createDummyData = async () => {
 
 
 //syncDataBase()
-
 //createDummyData()
 
 module.exports = db;

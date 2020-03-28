@@ -21,6 +21,10 @@ module.exports = (sequelize, Sequelize) => {
         Users.hasMany(Token);
     };
 
+    Users.associate = function({Orders}) {
+        Users.hasMany(Orders);
+    };
+
     Users.findByCredentials = async ({email = '', password = ''}) =>  {
 
         if(email === '' || password === '')
