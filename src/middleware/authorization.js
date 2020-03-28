@@ -11,11 +11,11 @@ const Authorization = async (req, res, next) => {
                 },
                 include: Users
             })
-        
+
         if(!_token)
             throw new Error()
         
-        req.user = user
+        req.user = _token.user
 
         next()
 

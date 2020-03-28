@@ -14,7 +14,6 @@ module.exports = (sequelize, Sequelize) => {
     });
 
     Users.associate = function({Rol}) {
-        console.log("MODELO")
         Token.belongsTo(Rol);
     };
 
@@ -44,7 +43,6 @@ module.exports = (sequelize, Sequelize) => {
 
     Users.prototype.generateToken = async function () {
         
-        console.log("HOLIS SOY:", this)
         const token = jwt.sign({id: this.id.toString() }, process.env.JWT_SECRET)
 
         const { Token } = sequelize.models;
