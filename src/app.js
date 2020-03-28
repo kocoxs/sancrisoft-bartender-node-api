@@ -10,4 +10,10 @@ app.use(express.json())
 app.use(userRoutes)
 app.use(productRoutes)
 
+app.get('*', (req, res) => {
+    res.send({
+        error: 'Page Not Found 404'
+    })
+})
+
 module.exports = app
