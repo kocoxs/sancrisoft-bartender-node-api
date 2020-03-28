@@ -1,4 +1,5 @@
 const express = require("express")
+const mysql = require('../models/index.js')
 
 const router = new express.Router()
 
@@ -6,14 +7,14 @@ router.post('/login', async (req, res)=>{
     try {
         const email = req.body.email
         const password = req.body.password
+        
+        const user = await mysql.Users.findByCredentials({email, password})
 
-        //const user = await User(req.body).findByCredentials({email, password})
-        //const token = await user.generateToken();
+        const token = await user.generateToken();
 
-        res.send({response: `Login`})
+        res.send({user, token})
 
     } catch (error) {
-        //console.log(error)
         res.status(400).send()        
     }
 })

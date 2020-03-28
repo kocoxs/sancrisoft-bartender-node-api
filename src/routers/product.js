@@ -1,9 +1,10 @@
 const express = require("express")
+const Authorization = require('../middleware/authorization.js')
 
 const router = new express.Router()
 
 //POST      /product       Create New
-router.post('/product', async (req, res)=>{
+router.post('/product', Authorization, async (req, res)=>{
     
     console.log(req.body)
     res.send({
@@ -14,7 +15,7 @@ router.post('/product', async (req, res)=>{
 });
 
 //PATCH     /product/:id   Update
-router.patch('/product/:id', async (req, res)=>{
+router.patch('/product/:id', Authorization, async (req, res)=>{
     
     console.log(req.params)
     const id = req.params.id
@@ -26,7 +27,7 @@ router.patch('/product/:id', async (req, res)=>{
 });
 
 //DELETE    /product/:id   Delete producto
-router.delete('/product/:id', async (req, res) => {
+router.delete('/product/:id', Authorization, async (req, res) => {
    
     console.log(req.params)
     const id = req.params.id
@@ -37,7 +38,7 @@ router.delete('/product/:id', async (req, res) => {
 })
 
 //GET       /product/:id   Single
-router.get('/product/:id', async (req, res)=>{
+router.get('/product/:id', Authorization, async (req, res)=>{
     
     console.log(req.params)
     const id = req.params.id
@@ -48,7 +49,7 @@ router.get('/product/:id', async (req, res)=>{
 })
 
 //GET       /product       All
-router.get('/product/', async (req, res)=>{
+router.get('/product/', Authorization, async (req, res)=>{
     
     res.send({
         response: `Todos los productos`

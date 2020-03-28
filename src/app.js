@@ -1,6 +1,6 @@
 const express = require('express')
 
-//require('./db/mongoose.js')
+require('./models/index.js')
 const userRoutes = require('./routers/user.js')
 const productRoutes = require('./routers/product.js')
 
