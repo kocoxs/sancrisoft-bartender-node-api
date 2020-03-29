@@ -66,7 +66,7 @@ const createDummyData = async () => {
 
         await db.Tips.create({name:'No tip', amount: 0.0})
         await db.Tips.create({name:'10%', amount: 0.1})
-        await db.Tips.create({name:'205', amount: 0.2})
+        await db.Tips.create({name:'20%', amount: 0.2})
 
     } catch (error) {
         console.log('ERROR: ', error)
