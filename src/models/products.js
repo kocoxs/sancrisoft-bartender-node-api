@@ -13,10 +13,6 @@ module.exports = (sequelize, Sequelize) => {
         icon: {
             type: Sequelize.STRING(200),
             defaultValue: ''
-        },
-        iconPath: {
-            type: Sequelize.STRING(200),
-            defaultValue: ''
         }
     });
 

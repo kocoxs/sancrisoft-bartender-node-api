@@ -5,8 +5,19 @@ const mysql = require('../models/index.js')
 const router = new express.Router()
 const fs = require('fs')
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/products');
+    },
+    filename: function (req, file, cb) {
+        const datetimestamp = Date.now();
+        cb(null, datetimestamp + '-' + file.originalname)
+    }
+})
+ 
+
 const upload = multer({
-    dest:'uploads/products',
+    storage,
     limits:{
         fileSize: 1048576
     },
@@ -30,15 +41,14 @@ router.post('/product', Authorization, upload.single('icon'), async (req, res)=>
 
     const name = req.body.name
     const price = req.body.price ? parseFloat(req.body.price) : 0 
-    const icon = req.file ? req.file.originalname : ''
-    const iconPath = req.file ? req.file.path : ''
+    const icon = req.file ? req.file.filename : ''
 
     try {
         
-        const product = await mysql.Products.create({ name, price, icon, iconPath })
+        const product = await mysql.Products.create({ name, price, icon })
     
         res.send({
-            data: product
+            product
         })
 
     } catch (error) {
@@ -77,21 +87,21 @@ router.patch('/product/:id', Authorization, upload.single('icon'), async (req, r
         req.body.price && req.body.price !== '' & (product.price = parseFloat(req.body.price))
 
         if(req.file){
-            const icon = req.file ? req.file.originalname : ''
-            const iconPath = req.file ? req.file.path : ''
+            const icon = req.file ? req.file.filename : ''
             //en caso de actualizar icono borrar el viejo
-            fs.unlinkSync(product.iconPath)
+            fs.unlinkSync(`uploads/products/${product.icon}`)
             product.icon = icon
-            product.iconPath = iconPath
         }
 
         product.save();
 
         res.send({
-            data: product
+            product
         })
     } catch (error) {
         //en caso de error borrar la imagen
+        if(req.file)
+            fs.unlinkSync(req.file.path)
         res.status(400).send({error: error.message })
     }
 
@@ -113,7 +123,7 @@ router.delete('/product/:id', Authorization, async (req, res) => {
         await product.destroy()
 
         res.send({
-            data: product
+            product
         })
 
     } catch (error) {
@@ -133,7 +143,7 @@ router.get('/product/:id', Authorization, async (req, res)=>{
             throw new Error('Product doesnt exist')
 
         res.send({
-            data: product
+            product
         })
 
     } catch (error) {
@@ -170,7 +180,7 @@ router.get('/product/', Authorization, async (req, res)=>{
         const products = await mysql.Products.findAll(query)
 
         res.send({
-            data: products
+            products
         })
 
     } catch (error) {
