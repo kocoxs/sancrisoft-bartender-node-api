@@ -1,18 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
 
     const OrdersProducts = sequelize.define("OrdersProducts", {
-        cantidad: {
+        quantity: {
             type: Sequelize.INTEGER,
             allowNull: false
         }
     });
 
     //belong to orders
-    OrdersProducts.associate = function({Orders}) {
+    OrdersProducts.associate = function({Orders, Products}) {
         OrdersProducts.belongsTo(Orders);
-    };
-    //belongs to products
-    OrdersProducts.associate = function({Products}) {
         OrdersProducts.belongsTo(Products);
     };
 

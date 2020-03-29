@@ -12,15 +12,9 @@ module.exports = (sequelize, Sequelize) => {
     });
 
     //belong to tips
-    Orders.associate = function({Tips}) {
+    Orders.associate = function({Tips, Users, OrdersProducts}) {
         Orders.belongsTo(Tips);
-    };
-    //belongs to user
-    Orders.associate = function({Users}) {
         Orders.belongsTo(Users);
-    };
-    //has many productsorder
-    Orders.associate = function({OrdersProducts}) {
         Orders.hasMany(OrdersProducts);
     };
 

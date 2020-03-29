@@ -13,17 +13,12 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    Users.associate = function({Rol}) {
-        Token.belongsTo(Rol);
-    };
-
-    Users.associate = function({Token}) {
+    Users.associate = function({Rol, Token, Orders}) {
+        Users.belongsTo(Rol);
         Users.hasMany(Token);
-    };
-
-    Users.associate = function({Orders}) {
         Users.hasMany(Orders);
     };
+
 
     Users.findByCredentials = async ({email = '', password = ''}) =>  {
 
@@ -52,7 +47,7 @@ module.exports = (sequelize, Sequelize) => {
         const { Token } = sequelize.models;
 
         const _token = await Token.create({token})
-
+        
         await this.addToken(_token)
     
         return token

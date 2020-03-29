@@ -29,7 +29,7 @@ const errorHandler = (error, req, res, next) => {
 router.post('/product', Authorization, upload.single('icon'), async (req, res)=>{
 
     const name = req.body.name
-    const price = req.body.price & parseFloat(req.body.price)
+    const price = req.body.price ? parseFloat(req.body.price) : 0 
     const icon = req.file ? req.file.originalname : ''
     const iconPath = req.file ? req.file.path : ''
 
