@@ -19,7 +19,6 @@ module.exports = (sequelize, Sequelize) => {
         Users.hasMany(Orders);
     };
 
-
     Users.findByCredentials = async ({email = '', password = ''}) =>  {
 
         if(email === '' || password === '')
@@ -51,6 +50,12 @@ module.exports = (sequelize, Sequelize) => {
         await this.addToken(_token)
     
         return token
+    }
+
+    Users.prototype.toJSON =  function () {
+        let values = Object.assign({}, this.get());
+        delete values.password;
+        return values;
     }
 
     return Users;
