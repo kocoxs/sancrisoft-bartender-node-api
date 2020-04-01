@@ -120,7 +120,10 @@ router.delete('/product/:id', Authorization, async (req, res) => {
         if(!product)
             throw new Error('Product doesnt exist')
 
-        await product.destroy()
+        product.status = 0
+
+        await product.save();
+        //await product.destroy()
 
         res.send({
             product
@@ -161,7 +164,11 @@ router.get('/product/:id', Authorization, async (req, res)=>{
 router.get('/product/', Authorization, async (req, res)=>{
     
     try {
-        let query = {}
+        let query = {
+            where: {
+                status:1
+            }
+        }
 
         if(req.query.sortBy){
             const sortdir = req.query.sortDir.trim().toLowerCase() === 'asc' ? 'ASC'  : 'DESC'
