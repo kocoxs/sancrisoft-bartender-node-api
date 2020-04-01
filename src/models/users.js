@@ -24,7 +24,10 @@ module.exports = (sequelize, Sequelize) => {
         if(email === '' || password === '')
             throw new Error ("Datos invalidos 1")
 
-        const result =  await Users.findOne({where: { email }})
+        const result =  await Users.findOne({
+            where: { email },
+            include:[{ model: sequelize.models.Rol }]
+        })
         
         if(!result)
             throw new Error ("Datos invalidos 2")

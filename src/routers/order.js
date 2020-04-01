@@ -97,7 +97,7 @@ router.post('/order', Authorization, async (req, res)=>{
                 throw new Error("Error not all products were save")
             }
             
-            const finalOrder = await mysql.Orders.findByPk(order.id,{
+            const result = await mysql.Orders.findByPk(order.id,{
                 include:[
                     { model:mysql.Tips },
                     { model:mysql.Users },
@@ -110,7 +110,7 @@ router.post('/order', Authorization, async (req, res)=>{
                 ]
             })
             
-            res.send({finalOrder})
+            res.send({result})
         }else{
             throw new Error("Los campos products y tipId son requeridos")
         }
@@ -151,7 +151,7 @@ router.get('/order', Authorization, async (req, res)=>{
         const orders = await mysql.Orders.findAll(query)
 
         res.send({
-            data: orders
+            orders
         })
 
     } catch (error) {
