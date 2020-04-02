@@ -1,5 +1,4 @@
 # Node Api
-El api para logearse, crud de productos y crear y obtener ordenes
 This is the api that allows you log in and log out, crud of products, create and get orders
 
 ## Installing
