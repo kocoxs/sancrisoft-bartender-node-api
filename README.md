@@ -4,7 +4,7 @@ This is the api that allows you log in and log out, crud of products, create and
 
 ## Installing
 
-1- Create your own  data base 
+1- Create your own  data base
 2- Need to create a `dev.env` file under the folder `/config` with this format
 
 ```bash
