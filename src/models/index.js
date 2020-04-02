@@ -39,11 +39,6 @@ Object.keys(db).forEach(modelName => {
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-const syncDataBase = async () => {
-    //sync modelos
-    await db.sequelize.sync({force: true});
-}
-
 const createDummyData = async () => { 
     await db.sequelize.sync({ force: true });
     try {
@@ -73,8 +68,6 @@ const createDummyData = async () => {
     }
 }
 
-
-//syncDataBase()
 //createDummyData()
 
 module.exports = db
