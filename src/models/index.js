@@ -77,4 +77,4 @@ const createDummyData = async () => {
 //syncDataBase()
 //createDummyData()
 
-module.exports = db;
+module.exports = db
