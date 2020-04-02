@@ -14,6 +14,8 @@ const Authorization = async (req, res, next) => {
 
         if(!_token)
             throw new Error()
+
+        req.token = _token
         req.user = _token.User
 
         next()
