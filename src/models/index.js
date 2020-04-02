@@ -48,7 +48,7 @@ const createDummyData = async () => {
         const pass = await bycript.hash('123456789', 8)
     
         await db.Users.create({
-            email: 'aaroncontreras1990@gmail.com',
+            email: 'admin@gmail.com',
             password: pass,
             RolId: 1
         })
